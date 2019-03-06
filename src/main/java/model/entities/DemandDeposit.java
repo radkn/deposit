@@ -7,8 +7,4 @@ public abstract class DemandDeposit extends Deposit {
     public DemandDeposit(int percent, int month,  boolean topUp) {
         super(percent, month, earlyWithdrawal, topUp);
     }
-
-    String getInfo() {
-        return null;
-    }
 }

@@ -6,7 +6,7 @@ public abstract class Deposit {
     private boolean earlyWithdrawal;
     private boolean topUp;
 
-    public Deposit(int percent, int month, boolean earlyWithdrawal, boolean topUp) {
+    Deposit(int percent, int month, boolean earlyWithdrawal, boolean topUp) {
         this.percent = percent;
         this.month = month;
         this.earlyWithdrawal = earlyWithdrawal;

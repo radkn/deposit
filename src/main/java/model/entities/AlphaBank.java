@@ -6,11 +6,11 @@ public class AlphaBank extends Bank{
         super(NAME);
     }
 
-    public DemandDeposit createDemandDeposit(int percent, int month) {
-        return new DemandDepositWithTopUp(percent, month);
+    public Bank addTimeDeposit(int percent, int month) {
+        return super.addDeposit(new TimeDepositWithoutTopUp(percent,month));
     }
 
-    public TimeDeposit createTimeDeposit(int percent, int month) {
-        return new TimeDepositWithTopUp(percent, month);
+    public Bank addDemandDeposit(int percent, int month) {
+        return super.addDeposit(new DemandDepositWithoutTopUp(percent,month));
     }
 }

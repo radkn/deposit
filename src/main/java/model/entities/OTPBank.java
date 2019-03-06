@@ -6,11 +6,11 @@ public class OTPBank extends Bank {
         super(NAME);
     }
 
-    public DemandDeposit createDemandDeposit(int percent, int month) {
-        return new DemandDepositWithoutTopUp(percent, month);
+    public Bank addTimeDeposit(int percent, int month) {
+        return super.addDeposit(new TimeDepositWithTopUp(percent,month));
     }
 
-    public TimeDeposit createTimeDeposit(int percent, int month) {
-        return new TimeDepositWithoutTopUp(percent, month);
+    public Bank addDemandDeposit(int percent, int month) {
+        return super.addDeposit(new DemandDepositWithTopUp(percent,month));
     }
 }

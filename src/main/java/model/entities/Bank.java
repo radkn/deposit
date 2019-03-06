@@ -3,10 +3,8 @@ package model.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Bank implements BankFactory {
+public abstract class Bank {
     private String name;
-
-
 
     private List<Deposit> deposits = new ArrayList<Deposit>();
 
@@ -18,15 +16,14 @@ public abstract class Bank implements BankFactory {
         return name;
     }
 
-    public Bank addTimeDeposit(int percent, int month){
-        deposits.add(createTimeDeposit(percent,month));
+    protected Bank addDeposit(Deposit deposit){
+        deposits.add(deposit);
         return this;
     }
 
-    public Bank addDemandDeposit(int percent, int month){
-        deposits.add(createDemandDeposit(percent,month));
-        return this;
-    }
+    public abstract Bank addTimeDeposit(int percent, int month);
+
+    public abstract Bank addDemandDeposit(int percent, int month);
 
     public List<Deposit> getAllDeposits(){
         return deposits;
