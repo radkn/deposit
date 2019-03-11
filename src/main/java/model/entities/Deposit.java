@@ -1,6 +1,8 @@
 package model.entities;
 
-public abstract class Deposit {
+public class Deposit implements Comparable{
+    private int id;
+    private int bank_id;
     private int percent;
     private int month;
     private boolean earlyWithdrawal;
@@ -35,5 +37,19 @@ public abstract class Deposit {
 
     public boolean isTopUp() {
         return topUp;
+    }
+
+    public int compareTo(Object o) {
+        return new Integer(percent).compareTo(((Deposit)o).getPercent());
+    }
+
+    @Override
+    public String toString() {
+        return "Deposit{" +
+                "percent=" + percent +
+                ", month=" + month +
+                ", earlyWithdrawal=" + earlyWithdrawal +
+                ", topUp=" + topUp +
+                '}';
     }
 }

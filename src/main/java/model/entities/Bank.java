@@ -1,12 +1,13 @@
 package model.entities;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Bank {
+    private int id;
     private String name;
 
-    private List<Deposit> deposits = new ArrayList<Deposit>();
+    private List<Deposit> deposits = new LinkedList<Deposit>();
 
     public Bank(String name) {
         this.name = name;
@@ -16,7 +17,7 @@ public abstract class Bank {
         return name;
     }
 
-    protected Bank addDeposit(Deposit deposit){
+    protected Bank addDeposit(Deposit deposit) {
         deposits.add(deposit);
         return this;
     }
@@ -25,7 +26,7 @@ public abstract class Bank {
 
     public abstract Bank addDemandDeposit(int percent, int month);
 
-    public List<Deposit> getAllDeposits(){
+    public List<Deposit> getDeposits() {
         return deposits;
     }
 }

@@ -12,19 +12,65 @@
     <title>Deposits page</title>
 </head>
 <body>
-<c:if test="${true}">
-    <h3>Error</h3>
-</c:if>
+<form method="post" action="">
+    Sort:
+    <select name="sort">
+        <option>by percent</option>
+        <option>by time</option>
+    </select>
 
-<table>
-    <c:forEach items="${deposits}" var="deposit">
+
+    <br/>
+    Filters:
+    <div>
+       <div>
+           percent
+           <input type="number" min="0" max="100" name="leftPercentBoard" value="0">
+           <input type="number" min="0" max="100" name="rightPercentBoard" value="100">
+       </div>
+        <div>
+            time
+            <input type="number" min="0" name="leftTimeBoard" value="0">
+            <input type="number" min="0" name="rightTimeBoard" value="100">
+        </div>
+        <div>
+            early withdrawal
+            <select name="earlyWithdrawal">
+                <option value="" selected hidden>Choose here</option>
+                <option>yes</option>
+                <option>no</option>
+            </select>
+        </div>
+        <div>
+            top up
+            <select name="topUp">
+                <option value="" selected hidden>Choose here</option>
+                <option>yes</option>
+                <option>no</option>
+            </select>
+        </div>
+    </div>
+    <input type="submit" value="apply">
+    <table border="1">
         <tr>
-            <td>${deposit.percent}</td>
-            <td>${deposit.month}</td>
-            <td>${deposit.earlyWithdrawal}</td>
-            <td>${deposit.topUp}</td>
+            <%--<td>Bank</td>--%>
+            <td>Percent</td>
+            <td>Time(month)</td>
+            <td>Early withdrawal</td>
+            <td>Top up</td>
         </tr>
-    </c:forEach>
-</table>
+        <%--<c:forEach items="${banks}" var="bank">--%>
+        <c:forEach items="${deposits}" var="deposit">
+            <tr>
+                    <%--<td>${bank.name}</td>--%>
+                <td>${deposit.percent}</td>
+                <td>${deposit.month}</td>
+                <td>${deposit.earlyWithdrawal}</td>
+                <td>${deposit.topUp}</td>
+            </tr>
+        </c:forEach>
+        <%--</c:forEach>--%>
+    </table>
+</form>
 </body>
 </html>
