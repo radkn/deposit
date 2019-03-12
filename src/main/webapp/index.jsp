@@ -19,8 +19,8 @@
 <form method="post" action="">
     <fmt:message key="sortStr"/>
     <select name="sort">
-        <option><fmt:message key="byPercent"/></option>
-        <option><fmt:message key="byTime"/></option>
+        <option value="by percent"><fmt:message key="byPercent"/></option>
+        <option value="by time"><fmt:message key="byTime"/></option>
     </select>
 
 
@@ -55,7 +55,7 @@
         </div>
     </div>
     <input type="submit" value="apply">
-    <h3><fmt:message key="depositTableName"/>t</h3>
+    <h3><fmt:message key="depositTableName"/></h3>
     <table border="1">
         <tr>
             <td><fmt:message key="bankStr"/></td>
