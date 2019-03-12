@@ -1,9 +1,7 @@
 package controller;
 
-import model.entities.AlphaBank;
-import model.entities.Bank;
 import model.entities.Deposit;
-import model.entities.OTPBank;
+import service.DBService;
 import service.FilterService;
 import service.SortService;
 
@@ -12,54 +10,46 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainServlet extends HttpServlet {
+    private final String INDEX_JSP = "index.jsp";
+    private final String DEPOSITS_ATTRIBUTE = "deposits";
+    private final String SORT_PARAMETER = "sort";
+    private DBService dbService;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        dbService = new DBService();
+        dbService.setDriver();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        List<Bank> banks = createBankList();
-        List<Deposit> deposits = new ArrayList<>();
-        banks.forEach(d -> deposits.addAll(d.getDeposits()));
-
-        req.setAttribute("deposits",deposits);
-        req.getRequestDispatcher("index.jsp").forward(req,resp);
+        List<Deposit> deposits = dbService.getDepositList();
+        req.setAttribute(DEPOSITS_ATTRIBUTE,deposits);
+        req.getRequestDispatcher(INDEX_JSP).forward(req,resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        List<Bank> banks = createBankList();
-        List<Deposit> deposits = new ArrayList<>();
-        banks.stream().forEach(d -> deposits.addAll(d.getDeposits()));
+        List<Deposit> deposits = dbService.getDepositList();
 
         SortService ss = new SortService();
         FilterService fs = new FilterService();
         List<Deposit> dep;
 
-        String str = req.getParameter("sort");
-        dep = ss.doSort(deposits, str);
+        String str = req.getParameter(SORT_PARAMETER);
 
+        dep = ss.doSort(deposits, str);
         dep = fs.doFilter(req,dep);
 
-        req.setAttribute("deposits",dep);
-        req.getRequestDispatcher("index.jsp").forward(req,resp);
+        req.setAttribute(DEPOSITS_ATTRIBUTE,dep);
+        req.getRequestDispatcher(INDEX_JSP).forward(req,resp);
     }
 
-    private List<Bank> createBankList(){
-        AlphaBank alphaBank = new AlphaBank();
-        alphaBank.addDemandDeposit(10, 6);
-        alphaBank.addTimeDeposit(13, 6);
-        alphaBank.addTimeDeposit(14, 12);
 
-        Bank otpBank = new OTPBank();
-        otpBank.addDemandDeposit(12, 9);
-        otpBank.addTimeDeposit(16,24);
-        List<Bank> banks = new ArrayList<Bank>();
-        banks.add(alphaBank);
-        banks.add(otpBank);
-        return banks;
-    }
 }

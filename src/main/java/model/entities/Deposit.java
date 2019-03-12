@@ -8,11 +8,30 @@ public class Deposit implements Comparable{
     private boolean earlyWithdrawal;
     private boolean topUp;
 
-    Deposit(int percent, int month, boolean earlyWithdrawal, boolean topUp) {
+    public Deposit() {
+    }
+
+   public Deposit(int percent, int month, boolean earlyWithdrawal, boolean topUp) {
         this.percent = percent;
         this.month = month;
         this.earlyWithdrawal = earlyWithdrawal;
         this.topUp = topUp;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getBank_id() {
+        return bank_id;
+    }
+
+    public void setBank_id(int bank_id) {
+        this.bank_id = bank_id;
     }
 
     public int getPercent() {
@@ -35,8 +54,16 @@ public class Deposit implements Comparable{
         return earlyWithdrawal;
     }
 
+    public void setEarlyWithdrawal(boolean earlyWithdrawal) {
+        this.earlyWithdrawal = earlyWithdrawal;
+    }
+
     public boolean isTopUp() {
         return topUp;
+    }
+
+    public void setTopUp(boolean topUp) {
+        this.topUp = topUp;
     }
 
     public int compareTo(Object o) {

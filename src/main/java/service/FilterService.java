@@ -11,34 +11,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FilterService {
-    private final String PERCENT_LEFT_BOARD = "leftPercentBoard";
-    private final String PERCENT_RIGHT_BOARD = "rightPercentBoard";
-    private final String TIME_LEFT_BOARD = "leftTimeBoard";
-    private final String TIME_RIGHT_BOARD = "rightTimeBoard";
-
-    private final String EARLY_WITHDRAWAL = "earlyWithdrawal";
-    private final String TOP_UP = "topUp";
 
     public List<Deposit> doFilter(HttpServletRequest req, List<Deposit> deposits){
-        int percLeftBoard = Integer.valueOf(req.getParameter(PERCENT_LEFT_BOARD));
-        int percRightBoard = Integer.valueOf(req.getParameter(PERCENT_RIGHT_BOARD));
-        int timeLeftBoard = Integer.valueOf(req.getParameter(TIME_LEFT_BOARD));
-        int timeRightBoard = Integer.valueOf(req.getParameter(TIME_RIGHT_BOARD));
+        int percLeftBoard = Integer.valueOf(req.getParameter(StrResource.PERCENT_LEFT_BOARD));
+        int percRightBoard = Integer.valueOf(req.getParameter(StrResource.PERCENT_RIGHT_BOARD));
+        int timeLeftBoard = Integer.valueOf(req.getParameter(StrResource.TIME_LEFT_BOARD));
+        int timeRightBoard = Integer.valueOf(req.getParameter(StrResource.TIME_RIGHT_BOARD));
 
         List<Filter> filters = new ArrayList<>();
 
         filters.add(new PercentFilter(percLeftBoard,percRightBoard));
         filters.add(new TimeFilter(timeLeftBoard,timeRightBoard));
 
-        if(req.getParameter(EARLY_WITHDRAWAL).equals("yes")){
+        if(req.getParameter(StrResource.EARLY_WITHDRAWAL).equals(StrResource.YES)){
             filters.add(new EarlyWithdrawalFilter(true));
-        }else if(req.getParameter(EARLY_WITHDRAWAL).equals("no")){
+        }else if(req.getParameter(StrResource.EARLY_WITHDRAWAL).equals(StrResource.NO)){
             filters.add(new EarlyWithdrawalFilter(false));
         }
 
-        if(req.getParameter(TOP_UP).equals("yes")){
+        if(req.getParameter(StrResource.TOP_UP).equals(StrResource.YES)){
             filters.add(new TopUpFilter(true));
-        }else if(req.getParameter(TOP_UP).equals("no")){
+        }else if(req.getParameter(StrResource.TOP_UP).equals(StrResource.NO)){
             filters.add(new TopUpFilter(false));
         }
 

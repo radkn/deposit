@@ -7,69 +7,72 @@
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="lenguage" value="${not empty param.lenguage ? param.lenguage : not empty lenguage ? lenguage : pageContext.request.locale}" scope="session"/>
+<fmt:setLocale value="${lenguage}" scope="request"/>
+<fmt:setBundle basename="view"/>
+<html lang="language">
 <head>
-    <title>Deposits page</title>
+    <title><fmt:message key="pageTitle"/></title>
 </head>
 <body>
 <form method="post" action="">
-    Sort:
+    <fmt:message key="sortStr"/>
     <select name="sort">
-        <option>by percent</option>
-        <option>by time</option>
+        <option><fmt:message key="byPercent"/></option>
+        <option><fmt:message key="byTime"/></option>
     </select>
 
 
     <br/>
-    Filters:
+    <fmt:message key="filtersStr"/>
     <div>
        <div>
-           percent
+           <fmt:message key="percentStr"/>
            <input type="number" min="0" max="100" name="leftPercentBoard" value="0">
            <input type="number" min="0" max="100" name="rightPercentBoard" value="100">
        </div>
         <div>
-            time
+            <fmt:message key="timeStr"/>
             <input type="number" min="0" name="leftTimeBoard" value="0">
             <input type="number" min="0" name="rightTimeBoard" value="100">
         </div>
         <div>
-            early withdrawal
+            <fmt:message key="earlyWithdrawalStr"/>
             <select name="earlyWithdrawal">
                 <option value="" selected hidden>Choose here</option>
-                <option>yes</option>
-                <option>no</option>
+                <option><fmt:message key="yes"/></option>
+                <option><fmt:message key="no"/></option>
             </select>
         </div>
         <div>
-            top up
+            <fmt:message key="topUpStr"/>
             <select name="topUp">
                 <option value="" selected hidden>Choose here</option>
-                <option>yes</option>
-                <option>no</option>
+                <option><fmt:message key="yes"/></option>
+                <option><fmt:message key="no"/></option>
             </select>
         </div>
     </div>
     <input type="submit" value="apply">
+    <h3><fmt:message key="depositTableName"/>t</h3>
     <table border="1">
         <tr>
-            <%--<td>Bank</td>--%>
-            <td>Percent</td>
-            <td>Time(month)</td>
-            <td>Early withdrawal</td>
-            <td>Top up</td>
+            <td><fmt:message key="bankStr"/></td>
+            <td><fmt:message key="percentStr"/></td>
+            <td><fmt:message key="timeStr"/></td>
+            <td><fmt:message key="earlyWithdrawalStr"/></td>
+            <td><fmt:message key="topUpStr"/></td>
         </tr>
-        <%--<c:forEach items="${banks}" var="bank">--%>
         <c:forEach items="${deposits}" var="deposit">
             <tr>
-                    <%--<td>${bank.name}</td>--%>
+                <td>${deposit.bank_id}</td>
                 <td>${deposit.percent}</td>
                 <td>${deposit.month}</td>
-                <td>${deposit.earlyWithdrawal}</td>
-                <td>${deposit.topUp}</td>
+                <td>${deposit.earlyWithdrawal ? "yes" : "no"}</td>
+                <td>${deposit.topUp ? "yes" : "no"}</td>
             </tr>
         </c:forEach>
-        <%--</c:forEach>--%>
     </table>
 </form>
 </body>
